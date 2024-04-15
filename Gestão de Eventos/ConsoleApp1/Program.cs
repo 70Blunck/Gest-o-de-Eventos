@@ -124,15 +124,15 @@ namespace GestaoEventos
 
             Evento evento = new Evento();
 
-            evento.Id = GerarIdUnico();
+            evento.Id = GerarIdUnico(6);
 
             Console.Write("Título: ");
             evento.Titulo = Console.ReadLine();
 
-            Console.Write("Data e hora de início (formato: yyyy-MM-dd HH:mm): ");
+            Console.Write("Data e hora de início (formato: aaaa-MM-dd HH:mm): ");
             evento.DataHoraInicio = DateTime.Parse(Console.ReadLine());
 
-            Console.Write("Data e hora de término (formato: yyyy-MM-dd HH:mm): ");
+            Console.Write("Data e hora de término (formato: aaaa-MM-dd HH:mm): ");
             evento.DataHoraFim = DateTime.Parse(Console.ReadLine());
             
             Console.Write("Descrição: ");
@@ -171,10 +171,10 @@ namespace GestaoEventos
         {
             Console.WriteLine("=== Listar Eventos por Período ===");
 
-            Console.Write("Data de início do período (formato: yyyy-MM-dd): ");
+            Console.Write("Data de início do período (formato: aaaa-MM-dd): ");
             DateTime dataInicio = DateTime.Parse(Console.ReadLine());
 
-            Console.Write("Data de fim do período (formato: yyyy-MM-dd): ");
+            Console.Write("Data de fim do período (formato: aaaa-MM-dd): ");
             DateTime dataFim = DateTime.Parse(Console.ReadLine());
 
             Console.WriteLine("=== Eventos no Período ===");
@@ -200,7 +200,7 @@ namespace GestaoEventos
         {
             Console.WriteLine("=== Pesquisar Evento por Data ===");
 
-            Console.Write("Digite a data (formato: yyyy-MM-dd): ");
+            Console.Write("Digite a data (formato: aaaa-MM-dd): ");
             DateTime dataPesquisa = DateTime.Parse(Console.ReadLine());
 
             Console.WriteLine("=== Eventos na Data Específica ===");
@@ -263,11 +263,11 @@ namespace GestaoEventos
                     evento.Titulo = Console.ReadLine();
                     break;
                 case 2:
-                    Console.Write("Nova Data e Hora de Início (formato: yyyy-MM-dd HH:mm): ");
+                    Console.Write("Nova Data e Hora de Início (formato: aaaa-MM-dd HH:mm): ");
                     evento.DataHoraInicio = DateTime.Parse(Console.ReadLine());
                     break;
                 case 3:
-                    Console.Write("Nova Data e Hora de Término (formato: yyyy-MM-dd HH:mm): ");
+                    Console.Write("Nova Data e Hora de Término (formato: aaaa-MM-dd HH:mm): ");
                     evento.DataHoraFim = DateTime.Parse(Console.ReadLine());
                     break;
                 case 4:
@@ -392,18 +392,20 @@ namespace GestaoEventos
             Console.WriteLine($"Dados do evento exportados com sucesso para o arquivo '{fileName}'.");
         }
 
-        public string GerarIdUnico()
+        public string GerarIdUnico(int tamanho)
         {
-            Guid guid = Guid.NewGuid();
+            const string caracteresPermitidos = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            char[] id = new char[tamanho];
 
-            byte[] bytes = guid.ToByteArray();
-            int number = BitConverter.ToInt32(bytes, 0);
+            for (int i = 0; i < tamanho; i++)
+            {
+                id[i] = caracteresPermitidos[random.Next(caracteresPermitidos.Length)];
+            }
 
-            number = Math.Abs(number);
+            return new string(id);
 
-            string id = number.ToString("D6");
-
-            return id;
         }
     }
 }
+
