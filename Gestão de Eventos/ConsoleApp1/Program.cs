@@ -36,22 +36,52 @@ namespace GestaoEventos
                         
                         break;
                     case 2:
+                        try {
                         eventoManager.ListarEventosPorPeriodo();
+                        }
+                        catch {
+                            Console.WriteLine("Algo deu errado!!!");
+                        }
                         break;
                     case 3:
+                        try {
                         eventoManager.PesquisarEventoPorData();
+                        }
+                        catch {
+                            Console.WriteLine("Algo deu errado!!!");
+                        }
                         break;
                     case 4:
+                        try {
                         eventoManager.EditarEvento();
+                        }
+                        catch {
+                            Console.WriteLine("Algo deu errado!!!");
+                        }
                         break;
                     case 5:
+                        try {
                         eventoManager.PesquisarContatoCadastrado();
+                        }
+                        catch {
+                            Console.WriteLine("Algo deu errado!!!");
+                        }
                         break;
                     case 6:
+                        try {
                         eventoManager.ExcluirEventoPorId();
+                        }
+                        catch {
+                            Console.WriteLine("Algo deu errado!!!");
+                        }
                         break;
                     case 7:
+                        try {
                         eventoManager.ExportarDadosEvento();
+                        }
+                        catch {
+                            Console.WriteLine("Algo deu errado!!!");
+                        }
                         break;
                     case 0:
                         Console.WriteLine("Encerrando o programa. Até mais!");
